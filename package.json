@@ -33,14 +33,8 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "body-parser": "^1.19.2",
-=======
     "@reduxjs/toolkit": "^1.8.0",
->>>>>>> 7101667a25e92ef962f430a7cc16805f195d61b3
-=======
->>>>>>> 358947c21982aa567c158dbae92f66463a09f378
     "cross-env": "^7.0.3",
     "express": "^4.17.3",
     "path": "^0.12.7",
