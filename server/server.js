@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
+const authRouter = require('./routes/authRouter.js');
+const topicsRouter = require('./routes/topicsRouter.js');
+
 const PORT = 3000;
 
 const app = express();
@@ -15,10 +18,13 @@ app.get('/', (req, res) => {
   res.status(200).sendFile('../client/index.html');
 });
 
+app.use('/auth', authRouter);
 
+// app.get('/auth/logout', (req, res) => {
+//   res.redirect('/auth/login');
+// });
 
-
-
+app.use('/topics', topicsRouter);
 
 
 

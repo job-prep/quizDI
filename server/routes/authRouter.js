@@ -1,18 +1,23 @@
 const express = require('express');
-const path = require('path');
-const authController = require('../controllers/authController.js')
+const authController = require('../controllers/authController.js');
+const topicController = require('../controllers/topicsController.js');
 
 const authRouter = express.Router();
 
+
+// ------ will need to use authController after database is set up -----
 // Create route for login
-authRouter.post('/login', (req, res) => {
-  return res.status(200).json('User Successfully Logged in');
+authRouter.post('/login',
+  authController.login, 
+  topicController.getUserTopics, 
+  (req, res) => {
+    res.status(200).json({ validAuth: true, user: res.locals.user, topics: res.locals.topics });
 });
 
 
 // route for signup 
-authRouter.post('/signup', authController.signUp, (req,res) => {
-return res.status(200).send('User Successfully Created')
+authRouter.post('/signup', authController.signup, (req, res) => {
+  res.status(200).json({ validAuth: true, user: res.locals.user, topics: [] });
 });
 
 
