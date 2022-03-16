@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest -- verbose",
     "start": "cross-env NODE_ENV=production nodemon server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development nodemon server/server.js\" \"cross-env NODE_ENV=development webpack serve --open\""
@@ -19,6 +19,12 @@
     "url": "https://github.com/job-prep/temp/issues"
   },
   "homepage": "https://github.com/job-prep/temp#readme",
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
@@ -33,14 +39,24 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "body-parser": "^1.19.2",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/material": "^5.5.1",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
     "@reduxjs/toolkit": "^1.8.0",
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.2",
     "cross-env": "^7.0.3",
     "express": "^4.17.3",
+    "jest": "^27.5.1",
     "path": "^0.12.7",
     "pg": "^8.7.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6"
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.2"
   }
 }
