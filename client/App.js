@@ -4,16 +4,18 @@ import { Link, Route, Routes, Navigate } from 'react-router-dom'
 
 import Login from './Components/Login'
 import Signup from './Components/Signup'
-import SideBar from './Components/SideBar';
+import Layout from './Components/Layout';
+
 
 const App = () => {
   // test value
-  const user = null;
+  // const user = null;
+  const user = 'test'
   // const user =  useSelector((state => state.systemDesign.user))
 
   return (
     <Routes>
-      <Route path = '/' element = {user ? <SideBar /> : <Navigate replace to="login" /> } />
+      <Route path = '/' element = {user ? <Layout /> : <Navigate replace to="login" /> } /> 
       <Route path = 'login' element = {<Login />} />
       <Route path = 'signup' element = {<Signup />} />
     </Routes>

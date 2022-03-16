@@ -14,11 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-const FlashCardContainer = props => {
+const TopicContainer = props => {
   // const { question, answer } =  useSelector((state => state.systemDesign.currentFlashcard))
-  const currentFlashcard = {question: 'To account for hot users, ', answer: 'use load balancers'}
   // const showAnswer =  useSelector((state => state.systemDesign.showAnswer))
-  const showAnswer = true;
   // const dispatch = useDispatch();
 
   return (
@@ -34,7 +32,7 @@ const FlashCardContainer = props => {
   //     Next Card
   //   </button>
   // </div>
-    <Paper sx={{ maxWidth: 936, height: 450, margin: 'auto', overflow: 'hidden' }}>
+    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
     <AppBar
       position="static"
       color="default"
@@ -70,11 +68,11 @@ const FlashCardContainer = props => {
         </Grid>
       </Toolbar>
     </AppBar>
-    <Typography sx={{ my: 20, mx: 2 }} color="text.secondary" align="center">
-      {showAnswer ? currentFlashcard.answer : currentFlashcard.question}
+    <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
+      No users for this project yet
     </Typography>
   </Paper>
   )
 }
 
-export default FlashCardContainer
+export default TopicContainer
