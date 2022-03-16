@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRouter);
 
-app.get('/auth/logout', (req, res) => {
-  res.redirect('/auth/login');
-});
+// app.get('/auth/logout', (req, res) => {
+//   res.redirect('/auth/login');
+// });
 
 app.use('/topics', topicsRouter);
 
