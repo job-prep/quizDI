@@ -174,7 +174,7 @@ const drawerWidth = 200;
 const Layout = () => {
   // test value
   // const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const showFlashcards = true
+  const showFlashcards = false
   // const showFlashcards =  useSelector((state => state.systemDesign.showFlashcards))
 
   return (
@@ -202,7 +202,9 @@ const Layout = () => {
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <NavBar />
         <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-          {showFlashcards ? <FlashCardContainer /> : <TopicContainer />}
+          {/* {showFlashcards ? <FlashCardContainer /> : <TopicContainer />} */}
+          <FlashCardContainer />
+          <TopicContainer />
         </Box>
         <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
           <Copyright />

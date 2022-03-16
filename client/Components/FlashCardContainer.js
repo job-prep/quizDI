@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux'
-// import { showAnswer, nextFlashcard } from '../redux/reducer'
+import { useSelector, useDispatch } from 'react-redux'
+import { showAnswer, nextFlashcard } from '../redux/reducer'
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,26 +14,15 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
+
 const FlashCardContainer = props => {
-  // const { question, answer } =  useSelector((state => state.systemDesign.currentFlashcard))
-  const currentFlashcard = {question: 'To account for hot users, ', answer: 'use load balancers'}
-  // const showAnswer =  useSelector((state => state.systemDesign.showAnswer))
+  const currentFlashcard = {question: 'To account for hot users, ', answer: 'use load balancers'};
   const showAnswer = true;
+  // const currentFlashcard = useSelector(state => state.systemDesign[currentFlashcard]);
+  // const showAnswers =  useSelector(state => state.systemDesign[showAnswer]);
   // const dispatch = useDispatch();
 
   return (
-  // <div>
-  //   <button
-  //     label="Show Answer"
-  //     onClick={() => dispatch(showAnswer())}>
-  //     Show Answer 
-  //   </button>
-  //   <button
-  //     label="Next Card"
-  //     onClick={() => dispatch(nextFlastcard())}>
-  //     Next Card
-  //   </button>
-  // </div>
     <Paper sx={{ maxWidth: 936, height: 450, margin: 'auto', overflow: 'hidden' }}>
     <AppBar
       position="static"
@@ -41,7 +30,7 @@ const FlashCardContainer = props => {
       elevation={0}
       sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}
     >
-      <Toolbar>
+      {/* <Toolbar>
         <Grid container spacing={2} alignItems="center">
           <Grid item>
             <SearchIcon color="inherit" sx={{ display: 'block' }} />
@@ -68,11 +57,31 @@ const FlashCardContainer = props => {
             </Tooltip>
           </Grid>
         </Grid>
-      </Toolbar>
+      </Toolbar> */}
     </AppBar>
     <Typography sx={{ my: 20, mx: 2 }} color="text.secondary" align="center">
       {showAnswer ? currentFlashcard.answer : currentFlashcard.question}
     </Typography>
+        <Button
+        sx={{margin:5}}
+        variant="contained"
+        color="inherit"
+        size="medium"
+        align="center"
+        onClick={() => dispatch(showAnswer())}
+        >
+        Show Answer
+        </Button>
+
+        <Button
+        variant="contained"
+        color="inherit"
+        size="medium"
+        align="center"
+        onClick={() => dispatch(nextFlashcard())}
+        >
+        Next Card
+        </Button>
   </Paper>
   )
 }

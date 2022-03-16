@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useDispatch } from 'react-redux'
-// import { showTopic } from '../redux/reducer'
+// import { showFlashcards } from '../redux/reducer'
 import Button from '@mui/material/Button';
 const TopicButton = (props) => {
   // const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const TopicButton = (props) => {
         color="inherit"
         size="small"
         label="Back To Topic"
-        // onClick={() => dispatch(showTopic())}
+        // onClick={() => dispatch(showFlashcards())}
       >
         Back to Topic
       </Button>

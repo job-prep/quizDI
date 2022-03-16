@@ -1,9 +1,9 @@
 import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux'
-// import { signup } from '../redux/reducer'
+import { useSelector, useDispatch } from 'react-redux'
+import { signup } from '../redux/reducer'
 
 const Signup = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const usernameText = React.createRef();
   const passwordText = React.createRef();
 
@@ -11,8 +11,8 @@ const Signup = () => {
     <div>
       <form className='signupForm' onSubmit={(e) => {
           e.preventDefault();
-          console.log('username: ', usernameText.current.value, ' password: ', passwordText.current.value)
-          // () => dispatch(signup(usernameText.current.value, passwordText.current.value))
+          console.log('username: ', usernameText.current.value, ' password: ', passwordText.current.value);
+          dispatch(signup(usernameText.current.value, passwordText.current.value))
         }} >
         <div className='signupText'>Signup</div>
           <label title="username">

@@ -5,6 +5,7 @@ const authController = {};
 // login
 authController.login = (req, res, next) => {
   const { username, password } = req.body;
+  console.log(req.body)
   const params = [ username ];
   const query = 'SELECT * FROM users WHERE username = $1';
   db.query(query, params)

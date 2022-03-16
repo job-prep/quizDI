@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -19,6 +20,10 @@ import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
 
+import Login from './Login'
+import Signup from './Signup';
+import getTopic from '../redux/reducer.js'
+
 const item = {
   py: '2px',
   px: 3,
@@ -35,8 +40,9 @@ const itemCategory = {
 };
 
 const SideBar = () => {
-  // test value
-  const user = null;
+  const topics =  useSelector((state) => state.systemDesign.topics)
+  const dispatch = useDispatch()
+
   const categories = [
     {
       id: 'SDI Topics',
@@ -51,32 +57,56 @@ const SideBar = () => {
     },
   ];
 
-  return (
-    <Drawer variant="permanent">
-    <List disablePadding>
-      <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-        QuizDI
-      </ListItem>
-      {categories.map(({ id, children }) => (
-        <Box key={id} sx={{ bgcolor: '#101F33' }}>
-          <ListItem sx={{ py: 2, px: 9 }}>
-            <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
+    return (
+      <Drawer variant="permanent">
+        <List disablePadding>
+          <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
+            QuizDI
           </ListItem>
-          {children.map(({ id: childId, icon, active }) => (
-            <ListItem disablePadding key={childId}>
-              <ListItemButton selected={active} sx={item}>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText>{childId}</ListItemText>
-              </ListItemButton>
+          <Box sx={{ bgcolor: '#101F33' }}>
+            <ListItem sx={{ py: 2, px: 9 }}>
+            <ListItemText sx={{ color: '#fff' }}>SDI Topics</ListItemText>
             </ListItem>
-          ))}
+            {topics.map(topic => (
+              <ListItem disablePadding key = {_id} title = {title}>
+                <ListItemButton selected = {active} sx = {item} onClick={() => dispatch(getTopic)}>
+                  <ListItemIcon><DnsRoundedIcon/></ListItemIcon>
+                  <ListItemText>{title}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </Box>
+        </List>
+      </Drawer>
+    )
+  }
 
-          <Divider sx={{ mt: 2 }} />
-        </Box>
-      ))}
-    </List>
-  </Drawer>
-  )
-}
+  // return (
+  //   <Drawer variant="permanent">
+  //   <List disablePadding>
+  //     <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
+  //       QuizDI
+  //     </ListItem>
+  //     {categories.map(({ children }) => (
+  //       <Box sx={{ bgcolor: '#101F33' }}>
+  //         <ListItem sx={{ py: 2, px: 9 }}>
+  //           <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
+  //         </ListItem>
+  //         {children.map(({ key = _id, title }) => (
+  //           <ListItem disablePadding key={childId}>
+  //             <ListItemButton selected={active} sx={item}>
+  //               <ListItemIcon><DnsRoundedIcon/></ListItemIcon>
+  //               <ListItemText>{title}</ListItemText>
+  //             </ListItemButton>
+  //           </ListItem>
+  //         ))}
+
+  //         <Divider sx={{ mt: 2 }} />
+  //       </Box>
+  //     ))}
+  //   </List>
+  // </Drawer>
+//   )
+// }
 
 export default SideBar;

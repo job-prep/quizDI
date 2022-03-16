@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
-    username: null,
+    user: null,
     currentTopic: null,
     currentFlashcard: null,
     notes: [],
@@ -12,32 +12,27 @@ const initialState = {
     showAnswer: false,
 }
 
-//Login should:
-//  authenticate user
-//  send back all topics, notes, and flashcards associated with that user
+
 export const login = createAsyncThunk(
     'systemDesign/login',
-    async loginObj => {
-        const response = await axios.get('/auth/login', loginObj)
+    async (loginObj, thunkAPI) => {
+        console.log('async login function triggered')
+        const response = await axios.post('/auth/login', loginObj)
         return response.data
     }
 )
 
-//Signup simply adds a user to the database
 export const signup = createAsyncThunk(
     'systemDesign/signup',
-    async signupObj => {
+    async (signupObj, thunkAPI) => {
         const response = await axios.post('/auth/signup', signupObj)
         return response.data
     }
 )
 
-//createTopic, submitFlashcard, and submitNote:
-//  add to the database
-//  send back the updated data depending on which route
 export const createTopic = createAsyncThunk(
     'systemDesign/createTopic',
-    async topic => {
+    async (topic, thunkAPI) => {
         const response = await axios.post('/topics/createTopic', topic)
         return response.data
     }
@@ -45,7 +40,7 @@ export const createTopic = createAsyncThunk(
 
 export const submitFlashcard = createAsyncThunk(
     'systemDesign/submitFlashcard',
-    async flashcardObj => {
+    async (flashcardObj, thunkAPI) => {
         const response = await axios.post('/topics/submitFlashcard', flashcardObj)
         return response.data
     }
@@ -53,16 +48,15 @@ export const submitFlashcard = createAsyncThunk(
 
 export const submitNote = createAsyncThunk(
     'systemDesign/submitNote',
-    async note => {
+    async (note, thunkAPI) => {
         const response = await axios.post('/topics/submitFlashcard', note)
         return response.data
     }
 )
 
-//TELL GROUP I CHANGED TOPIC TO GETTOPIC
 export const getTopic = createAsyncThunk(
     'systemDesign/topic',
-    async topic => {
+    async (topic, thunkAPI) => {
         const response = await axios.get('/topics/getTopic', topic)
         return response.data
     }
@@ -94,6 +88,7 @@ export const storeSlice = createSlice({
             else state.currentFlashcard = state.flashcards[0]
         },
         showAnswer: (state) => {
+            console.log('showAnswer hit')
             state.showAnswer = !state.showAnswer
         },
         showTopic: (state) => {
@@ -106,12 +101,14 @@ export const storeSlice = createSlice({
         [login.fulfilled]: (state, action) => {
             console.log('action for login: ', action)
             console.log('payload:', action.payload)
-            state.username = action.payload.username
-            state.topics = action.payload.topics
+            if (action.payload.validAuth) {
+                state.user = action.payload.user
+                state.topics = action.payload.topics
+            }
         },
         [signup.fulfilled]: (state, action) => {
             console.log('action for signup: ', action)
-            state.username = action.payload.username
+            if (action.payload.validAuth) state.user = action.payload
         },
         [createTopic.fulfilled]: (state, action) => {
             state.topics = action.payload.topics
@@ -123,9 +120,13 @@ export const storeSlice = createSlice({
             state.notes = action.payload.notes
         },
         [getTopic.fulfilled]: (state, action) => {
+            //TOPIC title returned as well?**
             state.notes = action.payload.notes
             state.flashcards = action.payload.flashcards
             state.currentTopic = action.payload.topic
         }
     }
 })
+
+export const { showFlashcards, nextFlashcard, showAnswer, showTopic } = storeSlice.actions
+export default storeSlice.reducer 

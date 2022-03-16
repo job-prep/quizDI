@@ -1,6 +1,6 @@
-import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux'
-// import { showFlashcards, showTopic } from '../redux/reducer'
+import React, { userEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { showFlashcards, showTopic } from '../redux/reducer'
 import TopicButton from './TopicButton';
 import FlashCardButton from './FlashCardButton';
 // mui imports
@@ -23,14 +23,11 @@ const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 
 const NavBar = (props) => {
-  // const showFlashcards =  useSelector((state => state.systemDesign.showFlashcards))
-  const showFlashcards = false;
+  const showFlashcards =  useSelector((state => state.systemDesign.showFlashcards))
+  // const showFlashcards = false;
   // const showFlashcards = true;
-
+  const currentTopic = useSelector((state) => state.systemDesign[currentTopic]);
   return (
-    // <div id='nav'>
-    //   { showFlashcards ? <FlashCardButton /> : <TopicButton /> }
-    // </div>
      <React.Fragment>
      <AppBar color="primary" position="sticky" elevation={0}>
        <Toolbar>
@@ -48,7 +45,7 @@ const NavBar = (props) => {
            <Grid item xs />
            <Grid item>
              <Link
-               href="/"
+               href = "/"
                variant="body2"
                sx={{
                  textDecoration: 'none',
@@ -57,19 +54,17 @@ const NavBar = (props) => {
                    color: 'common.white',
                  },
                }}
-               rel="noopener noreferrer"
-               target="_blank"
              >
-               Go to docs
+               Log out
              </Link>
            </Grid>
-           <Grid item>
+           {/* <Grid item>
              <Tooltip title="Alerts • No alerts">
                <IconButton color="inherit">
                  <NotificationsIcon />
                </IconButton>
              </Tooltip>
-           </Grid>
+           </Grid> */}
            <Grid item>
              <IconButton color="inherit" sx={{ p: 0.5 }}>
                {/* <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" /> */}
@@ -89,7 +84,7 @@ const NavBar = (props) => {
          <Grid container alignItems="center" spacing={1}>
            <Grid item xs>
              <Typography color="inherit" variant="h5" component="h1">
-               Authentication
+               {currentTopic ? currentTopic : 'Pick A Topic'}
              </Typography>
            </Grid>
            <Grid item>
