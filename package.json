@@ -40,15 +40,11 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
-=======
     "body-parser": "^1.19.2",
-    "@reduxjs/toolkit": "^1.8.0",
->>>>>>> dev
     "cross-env": "^7.0.3",
     "express": "^4.17.3",
     "jest": "^27.5.1",
