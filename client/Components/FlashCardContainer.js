@@ -16,14 +16,14 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 const FlashCardContainer = props => {
-  const currentFlashcard = {question: 'To account for hot users, ', answer: 'use load balancers'};
-  const showAnswer = true;
-  // const currentFlashcard = useSelector(state => state.systemDesign[currentFlashcard]);
-  // const showAnswers =  useSelector(state => state.systemDesign[showAnswer]);
-  // const dispatch = useDispatch();
+  // const currentFlashcard = {question: 'To account for hot users, ', answer: 'use load balancers'};
+  // const showAnswer = true;
+  const currentFlashcard = useSelector(state => state.systemDesign.currentFlashcard);
+  const showAnswers =  useSelector(state => state.systemDesign.showAnswerBool);
+  const dispatch = useDispatch();
 
   return (
-    <Paper sx={{ maxWidth: 936, height: 450, margin: 'auto', overflow: 'hidden' }}>
+    <Paper sx={{ maxWidth: 936, height: 500, margin: 'auto', overflow: 'hidden' }}>
     <AppBar
       position="static"
       color="default"
@@ -60,7 +60,7 @@ const FlashCardContainer = props => {
       </Toolbar> */}
     </AppBar>
     <Typography sx={{ my: 20, mx: 2 }} color="text.secondary" align="center">
-      {showAnswer ? currentFlashcard.answer : currentFlashcard.question}
+      {showAnswers ? currentFlashcard.answer : currentFlashcard.question}
     </Typography>
         <Button
         sx={{margin:5}}

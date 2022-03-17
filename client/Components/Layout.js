@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Link, Route, Routes } from 'react-router-dom'
-// import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // import { signup } from '../redux/reducer'
 import NavBar from './NavBar'
 import SideBar from './SideBar'
@@ -174,8 +174,8 @@ const drawerWidth = 200;
 const Layout = () => {
   // test value
   // const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const showFlashcards = false
-  // const showFlashcards =  useSelector((state => state.systemDesign.showFlashcards))
+  // const showFlashcards = false
+  const showFlashcards =  useSelector((state => state.systemDesign.showFlashcards))
 
   return (
     <ThemeProvider theme={theme}>
@@ -202,9 +202,9 @@ const Layout = () => {
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <NavBar />
         <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-          {/* {showFlashcards ? <FlashCardContainer /> : <TopicContainer />} */}
-          <FlashCardContainer />
-          <TopicContainer />
+          {showFlashcards ? <FlashCardContainer /> : <TopicContainer />}
+          {/* <FlashCardContainer />
+          <TopicContainer /> */}
         </Box>
         <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
           <Copyright />

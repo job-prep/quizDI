@@ -1,6 +1,5 @@
 import React, { userEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { showFlashcards, showTopic } from '../redux/reducer'
 import TopicButton from './TopicButton';
 import FlashCardButton from './FlashCardButton';
 // mui imports
@@ -26,7 +25,7 @@ const NavBar = (props) => {
   const showFlashcards =  useSelector((state => state.systemDesign.showFlashcards))
   // const showFlashcards = false;
   // const showFlashcards = true;
-  const currentTopic = useSelector((state) => state.systemDesign[currentTopic]);
+  const currentTopic = useSelector((state) => state.systemDesign.currentTopic);
   return (
      <React.Fragment>
      <AppBar color="primary" position="sticky" elevation={0}>

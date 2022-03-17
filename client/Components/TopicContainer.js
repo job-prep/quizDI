@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { submitFlashcard, submitNote } from '../redux/reducer'
 
@@ -18,37 +18,40 @@ import { ListItemText } from '@mui/material';
 import { Avatar } from '@mui/material';
 
 const TopicContainer = props => {
-  // const currentTopic =  useSelector((state => state.systemDesign.currentTopic))
-  const currentTopic = 'Twitter';
-  // const notes =  useSelector((state => state.systemDesign.notes))
-  const notes = [{
-                  note: 'Design twitter', 
-                  _id: 1,
-                  topic: 'Twitter',
-                  created_at: 1647455146
-                },
-                {
-                  note: 'That is twitter', 
-                  _id: 2,
-                  topic: 'Twitter',
-                  created_at: 1647455273
-                }];
-  // const flashcards =  useSelector((state => state.systemDesign.flashcards))
-  const flashcards = [{
-                  question: 'twitter', 
-                  answer: 'is cool', 
-                  _id: 1,
-                  topic: 'Twitter',
-                  created_at: 1647455263
-                },
-                {
-                  question: 'twitter', 
-                  answer: 'is fast', 
-                  _id: 2,
-                  topic: 'Twitter',
-                  created_at: 1647455269
-                }];
-  // const dispatch = useDispatch();
+  const currentTopic =  useSelector((state => state.systemDesign.currentTopic))
+  // const currentTopic = 'Twitter';
+  const notes =  useSelector((state => state.systemDesign.notes))
+  // const notes = [{
+  //                 note: 'Design twitter', 
+  //                 _id: 1,
+  //                 topic: 'Twitter',
+  //                 created_at: 1647455146
+  //               },
+  //               {
+  //                 note: 'That is twitter', 
+  //                 _id: 2,
+  //                 topic: 'Twitter',
+  //                 created_at: 1647455273
+  //               }];
+  const flashcards =  useSelector((state => state.systemDesign.flashcards))
+  // const flashcards = [{
+  //                 question: 'twitter', 
+  //                 answer: 'is cool', 
+  //                 _id: 1,
+  //                 topic: 'Twitter',
+  //                 created_at: 1647455263
+  //               },
+  //               {
+  //                 question: 'twitter', 
+  //                 answer: 'is fast', 
+  //                 _id: 2,
+  //                 topic: 'Twitter',
+  //                 created_at: 1647455269
+  //               }];
+  const dispatch = useDispatch();
+  const recordNotes = React.createRef();
+  const recordQuestion = React.createRef();
+  const recordAnswer = React.createRef();
 
   const generateOverview = (notes, flashcards, currTopic) => {
     const filteredNotes = notes.filter(note => note.topic === currTopic);
@@ -82,35 +85,27 @@ const TopicContainer = props => {
           <Grid item xs>
             <TextField
               fullWidth
-              placeholder="Search by email address, phone number, or user UID"
+              placeholder="Insert question to be used for flashcards"
+              inputRef={recordQuestion}
               InputProps={{
                 disableUnderline: true,
                 sx: { fontSize: 'default' },
               }}
               variant="standard"
             />
-          </Grid>
-          <Grid item>
-            <Button variant="contained" sx={{ mr: 1 }}>
-              Add user
-            </Button>
-            {/* <Tooltip title="Reload">
-              <IconButton>
-                <RefreshIcon color="inherit" sx={{ display: 'block' }} />
-              </IconButton>
-            </Tooltip> */}
           </Grid>
         </Grid>
       </Toolbar>
       <Toolbar>
         <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <SearchIcon color="inherit" sx={{ display: 'block' }} />
-          </Grid>
+          <Avatar variant="rounded">
+            A
+          </Avatar>
           <Grid item xs>
             <TextField
               fullWidth
-              placeholder="Search by email address, phone number, or user UID"
+              placeholder="Insert answer to be used for flashcards"
+              inputRef={recordAnswer}
               InputProps={{
                 disableUnderline: true,
                 sx: { fontSize: 'default' },
@@ -119,14 +114,42 @@ const TopicContainer = props => {
             />
           </Grid>
           <Grid item>
-            <Button variant="contained" sx={{ mr: 1 }}>
+            <Button variant="contained" sx={{ mr: 1 }}
+            onClick={() => dispatch(submitFlashcard({
+              question: recordQuestion.current.value,
+              answer: recordAnswer.current.value,
+            }
+              ))}>
+              Add Q and A
+            </Button>
+          </Grid>
+        </Grid>
+      </Toolbar>
+      <Toolbar>
+        <Grid container spacing={2} alignItems="center">
+          <Avatar variant="rounded">
+            N
+          </Avatar>
+          <Grid item xs>
+            <TextField
+              fullWidth
+              placeholder="Insert any other notes"
+              inputRef={recordNotes}
+              InputProps={{
+                disableUnderline: true,
+                sx: { fontSize: 'default' },
+              }}
+              variant="standard"
+            />
+          </Grid>
+          <Grid item>
+            <Button variant="contained" sx={{ mr: 1 }} 
+              onClick={() => dispatch(submitNote(
+                {
+                  content: recordNotes.current.value,
+                }))}>
               Add Note
             </Button>
-            {/* <Tooltip title="Reload">
-              <IconButton>
-                <RefreshIcon color="inherit" sx={{ display: 'block' }} />
-              </IconButton>
-            </Tooltip> */}
           </Grid>
         </Grid>
       </Toolbar>

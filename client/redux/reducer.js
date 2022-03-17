@@ -2,14 +2,53 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
+    // user: {_id: 1, username: 'abc', password: 'abc'},
     user: null,
-    currentTopic: null,
-    currentFlashcard: null,
-    notes: [],
-    topics: [],
-    flashcards: [],
+    currentTopic: 'Twitter',
+    currentFlashcard: {
+      question: 'Q: Which cache replacement policy would best fit our needs?', 
+      answer: 'A: When the cache is full and we want to replace a tweet with a newer/hotter tweet, how would we choose? Least Recently Used (LRU) can be a reasonable policy for our system. Under this policy, we discard the least recently viewed tweet first.', 
+      _id: 1,
+      topic: 'Twitter',
+      created_at: 1647455263
+    },
+    notes: [{
+      note: 'N: Cache design for Twitter', 
+      _id: 1,
+      topic: 'Twitter',
+      created_at: 1647455146
+    },
+    {
+      note: 'N: We can introduce a cache for database servers to cache hot tweets and users. We can use an off-the-shelf solution like Memcache that can store the whole tweet objects. Application servers, before hitting database, can quickly check if the cache has desired tweets. Based on clients’ usage patterns we can determine how many cache servers we need.', 
+      _id: 2,
+      topic: 'Twitter',
+      created_at: 1647455273
+    },
+    {
+      note: 'N: Design uber', 
+      _id: 4,
+      topic: 'Uber',
+      created_at: 1647455980
+    },
+    ],
+    topics: ['Twitter', 'Uber'],
+    flashcards: [{
+      question: 'Q: Which cache replacement policy would best fit our needs?', 
+      answer: 'A: When the cache is full and we want to replace a tweet with a newer/hotter tweet, how would we choose? Least Recently Used (LRU) can be a reasonable policy for our system. Under this policy, we discard the least recently viewed tweet first.', 
+      _id: 1,
+      topic: 'Twitter',
+      created_at: 1647455263
+    },
+    {
+      question: 'Q: How can we have a more intelligent cache?', 
+      answer: 'A: If we go with 80-20 rule, that is 20% of tweets generating 80% of read traffic which means that certain tweets are so popular that a majority of people read them. This dictates that we can try to cache 20% of daily read volume from each shard.', 
+      _id: 2,
+      topic: 'Twitter',
+      created_at: 1647455269
+    },
+    ],
     showFlashcards: false,
-    showAnswer: false,
+    showAnswerBool: false,
 }
 
 
@@ -18,6 +57,7 @@ export const login = createAsyncThunk(
     async (loginObj, thunkAPI) => {
         console.log('async login function triggered')
         const response = await axios.post('/auth/login', loginObj)
+        console.log('user: ', response.data)
         return response.data
     }
 )
@@ -42,6 +82,7 @@ export const submitFlashcard = createAsyncThunk(
     'systemDesign/submitFlashcard',
     async (flashcardObj, thunkAPI) => {
         const response = await axios.post('/topics/submitFlashcard', flashcardObj)
+        console.log('submitFlashcard response from server: ', response.data)
         return response.data
     }
 )
@@ -50,6 +91,7 @@ export const submitNote = createAsyncThunk(
     'systemDesign/submitNote',
     async (note, thunkAPI) => {
         const response = await axios.post('/topics/submitFlashcard', note)
+        console.log('submitNote response from server: ', response.data)
         return response.data
     }
 )
@@ -67,7 +109,7 @@ export const storeSlice = createSlice({
     initialState,
     reducers: {
         showFlashcards: (state) => {
-            state.showAnswer = false
+            state.showAnswerBool = false
 
             //If this is the first time we are showing flashcards, set current flashcard to first element
             if (state.currentFlashcard === null && state.showFlashcards === false) {
@@ -77,7 +119,7 @@ export const storeSlice = createSlice({
             } else state.showFlashcards = !state.showFlashcards
         },
         nextFlashcard: (state) => {
-            state.showAnswer = false
+            state.showAnswerBool = false
 
             //get the question of the object
             const question = Object.values(state.currentFlashcard)[0]
@@ -89,7 +131,7 @@ export const storeSlice = createSlice({
         },
         showAnswer: (state) => {
             console.log('showAnswer hit')
-            state.showAnswer = !state.showAnswer
+            state.showAnswerBool = !state.showAnswerBool
         },
         showTopic: (state) => {
             state.showFlashcards = false

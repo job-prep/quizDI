@@ -16,7 +16,7 @@ const FlashCardButton = props => {
         label="Back To Topic"
         onClick={() => dispatch(showFlashcards())}
       >
-        Flash Cards
+        Back to Topic
       </Button>
     </div>
   )

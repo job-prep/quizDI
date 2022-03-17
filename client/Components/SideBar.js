@@ -48,6 +48,9 @@ const SideBar = () => {
       id: 'SDI Topics',
       children: [
         {
+          id: 'Add New',
+        },
+        {
           id: 'Twitter',
           icon: <PeopleIcon />,
           active: true,
@@ -57,56 +60,56 @@ const SideBar = () => {
     },
   ];
 
+  //   return (
+  //     <Drawer variant="permanent">
+  //       <List disablePadding>
+  //         <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
+  //           QuizDI
+  //         </ListItem>
+  //         <Box sx={{ bgcolor: '#101F33' }}>
+  //           <ListItem sx={{ py: 2, px: 9 }}>
+  //           <ListItemText sx={{ color: '#fff' }}>SDI Topics</ListItemText>
+  //           </ListItem>
+  //           {topics.map(topic => (
+  //             <ListItem disablePadding key = {_id} title = {title}>
+  //               <ListItemButton selected = {active} sx = {item} onClick={() => dispatch(getTopic)}>
+  //                 <ListItemIcon><DnsRoundedIcon/></ListItemIcon>
+  //                 <ListItemText>{title}</ListItemText>
+  //               </ListItemButton>
+  //             </ListItem>
+  //           ))}
+  //         </Box>
+  //       </List>
+  //     </Drawer>
+  //   )
+  // }
+
     return (
       <Drawer variant="permanent">
-        <List disablePadding>
-          <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-            QuizDI
-          </ListItem>
+      <List disablePadding>
+        <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
+          quizDI
+        </ListItem>
+        {categories.map(({ id, children }) => (
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 9 }}>
-            <ListItemText sx={{ color: '#fff' }}>SDI Topics</ListItemText>
+              <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
             </ListItem>
-            {topics.map(topic => (
-              <ListItem disablePadding key = {_id} title = {title}>
-                <ListItemButton selected = {active} sx = {item} onClick={() => dispatch(getTopic)}>
-                  <ListItemIcon><DnsRoundedIcon/></ListItemIcon>
-                  <ListItemText>{title}</ListItemText>
+            {children.map(({ id, childId, active, icon }) => (
+              <ListItem disablePadding key={childId}>
+                <ListItemButton selected={active} sx={item}>
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText>{id}</ListItemText>
                 </ListItemButton>
               </ListItem>
             ))}
+
+            <Divider sx={{ mt: 2 }} />
           </Box>
-        </List>
-      </Drawer>
+        ))}
+      </List>
+    </Drawer>
     )
   }
-
-  // return (
-  //   <Drawer variant="permanent">
-  //   <List disablePadding>
-  //     <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-  //       QuizDI
-  //     </ListItem>
-  //     {categories.map(({ children }) => (
-  //       <Box sx={{ bgcolor: '#101F33' }}>
-  //         <ListItem sx={{ py: 2, px: 9 }}>
-  //           <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
-  //         </ListItem>
-  //         {children.map(({ key = _id, title }) => (
-  //           <ListItem disablePadding key={childId}>
-  //             <ListItemButton selected={active} sx={item}>
-  //               <ListItemIcon><DnsRoundedIcon/></ListItemIcon>
-  //               <ListItemText>{title}</ListItemText>
-  //             </ListItemButton>
-  //           </ListItem>
-  //         ))}
-
-  //         <Divider sx={{ mt: 2 }} />
-  //       </Box>
-  //     ))}
-  //   </List>
-  // </Drawer>
-//   )
-// }
 
 export default SideBar;

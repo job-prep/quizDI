@@ -21,8 +21,9 @@ const App = () => {
     // </Routes>
       // <Layout />
     <div>
-      {/* {user ? <Layout /> : <Login />} */}
-      <Layout />
+      {user ? <Layout /> : <Login />}
+      {/* <Layout /> */}
+      {/* <Login /> */}
     </div>
   )
 }
